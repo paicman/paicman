@@ -68,7 +68,7 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
         const aiMessage = data.reply;
         setTypingText(aiMessage);
       } catch (error) {
-        console.error("Error sending message to AIfrica:", error);
+        console.error("Error sending message to pAIcman:", error);
       } finally {
         setLoading(false);
         setThinking(false);
@@ -114,7 +114,7 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
           borderBottom: "2px solid #808080",
         }}
       >
-        AIfrica Chat
+        pAIcman Chat
         <Button
           onClick={onClose}
           sx={{
@@ -162,7 +162,7 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
                   fontWeight: chat.sender === "ai" ? "bold" : "normal",
                 }}
               >
-                <strong>{chat.sender === "user" ? "You" : "AIfrica"}:</strong>{" "}
+                <strong>{chat.sender === "user" ? "You" : "pAIcman"}:</strong>{" "}
                 {chat.message}
               </Typography>
             </Box>
@@ -181,7 +181,7 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
                   display: "block",
                 }}
               >
-                <strong>AIfrica:</strong>{" "}
+                <strong>pAIcman:</strong>{" "}
                 <Box
                   component='span'
                   sx={{
@@ -216,7 +216,7 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
           {thinking && !currentText && (
             <Box sx={{ marginBottom: "8px" }}>
               <Typography variant='body2' color='#000080'>
-                <strong>AIfrica:</strong> Thinking...
+                <strong>pAIcman:</strong> Thinking...
               </Typography>
             </Box>
           )}

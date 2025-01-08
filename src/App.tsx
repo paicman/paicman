@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./component/homepage";
-import Footer from "./component/footer/Footer";
 import { Stack } from "@mui/material";
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
       </Routes>
-      <Footer />
     </Stack>
   );
 }

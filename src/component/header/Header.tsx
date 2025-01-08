@@ -27,15 +27,15 @@ const Header: FC = () => {
               fontFamily: "'Brownstone', serif",
             }}
           >
-            AIfrica
+            pAIcman
           </Typography>
         </Link>
 
         {/* Navigation Links */}
         <Box sx={{ display: "flex", gap: 3, ml: "auto" }}>
           <StyledLink href='/'>Home</StyledLink>
-          <StyledLink href='/ask-aifrica'>Ask AIfrica</StyledLink>
-          <StyledLink href='https://github.com/AIfrica-Sol'>
+          <StyledLink href='/ask-pAIcman'>Ask pAIcman</StyledLink>
+          <StyledLink href='https://github.com/pAIcman-Sol'>
             About Us
           </StyledLink>
         </Box>
