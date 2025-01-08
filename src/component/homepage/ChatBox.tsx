@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -8,7 +8,6 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import typingGif from "../../assets/pacman.gif";
 
 interface ChatBoxProps {
   open: boolean;
@@ -195,7 +194,7 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
                 <strong>AIfrica:</strong> {currentText}
               </Typography>
               <img
-                src={typingGif}
+                src='../../assets/pacman.gif'
                 alt='Typing...'
                 style={{
                   width: "24px",

@@ -1,12 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./component/homepage";
-import ChatBox from "./component/homepage/ChatBox";
-import Header from "./component/header/Header";
 import Footer from "./component/footer/Footer";
 import { Stack } from "@mui/material";
-import background from "./assets/background.gif";
-import RepoAnalyzer from "./component/homepage/RepoAnalyzer";
-import FigletText from "./component/homepage/Figlet";
 
 function App() {
   return (
