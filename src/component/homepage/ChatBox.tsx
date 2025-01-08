@@ -24,12 +24,11 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
   const [chatHistory, setChatHistory] = useState<MessageHistory[]>([]);
   const [loading, setLoading] = useState(false);
   const [thinking, setThinking] = useState(false);
-  const [currentText, setCurrentText] = useState(""); // Text currently being typed
-  const [currentIndex, setCurrentIndex] = useState(0); // Current character index for typing animation
-  const [typingText, setTypingText] = useState(""); // Text to type (AI message)
-  const typingDelay = 50; // Typing speed (adjust as needed)
+  const [currentText, setCurrentText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [typingText, setTypingText] = useState("");
+  const typingDelay = 50;
 
-  // Handle typing animation
   useEffect(() => {
     if (currentIndex < typingText.length) {
       const timeout = setTimeout(() => {
@@ -39,29 +38,22 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
 
       return () => clearTimeout(timeout);
     } else if (typingText.length > 0) {
-      // Add the completed AI message to the chat history
       setChatHistory((prev) => [
         ...prev,
         { sender: "ai", message: typingText },
       ]);
-      setCurrentText(""); // Clear current text
-      setTypingText(""); // Clear typing text
-      setCurrentIndex(0); // Reset index
+      setCurrentText("");
+      setTypingText("");
+      setCurrentIndex(0);
     }
   }, [currentIndex, typingText]);
 
-  // Function to handle message submission
   const handleMessageSubmit = async (message: string) => {
     if (message.trim()) {
       setThinking(true);
-
-      // Add user's message to chat history
       setChatHistory((prev) => [...prev, { sender: "user", message }]);
-
-      // Clear input field
       setUserMessage("");
-
-      setLoading(true); // Set loading to true
+      setLoading(true);
 
       try {
         const response = await fetch("/api/ask-paicman", {
@@ -74,20 +66,17 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
 
         const data = await response.json();
         const aiMessage = data.reply;
-
-        // Start typing animation for AI's message
         setTypingText(aiMessage);
       } catch (error) {
         console.error("Error sending message to AIfrica:", error);
       } finally {
-        setLoading(false); // Set loading to false
+        setLoading(false);
         setThinking(false);
       }
     }
   };
 
   useEffect(() => {
-    // Initial AI message
     setChatHistory((prev) => [
       ...prev,
       { sender: "ai", message: "How can I help you today?" },
@@ -111,7 +100,6 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
         },
       }}
     >
-      {/* Title Bar */}
       <DialogTitle
         sx={{
           display: "flex",
@@ -145,7 +133,6 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
         </Button>
       </DialogTitle>
 
-      {/* Chat Content */}
       <DialogContent
         sx={{
           padding: "8px",
@@ -154,7 +141,6 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
           fontFamily: 'W95FA, "Microsoft Sans Serif", Arial, sans-serif',
         }}
       >
-        {/* Chat messages */}
         <Box
           sx={{
             height: "300px",
@@ -181,27 +167,50 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
               </Typography>
             </Box>
           ))}
-          {/* AI's typing animation */}
           {currentText && (
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
                 marginBottom: "8px",
               }}
             >
-              <Typography variant='body2' color='#000080'>
-                <strong>AIfrica:</strong> {currentText}
-              </Typography>
-              <img
-                src='../../assets/pacman.gif'
-                alt='Typing...'
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  marginLeft: "8px",
+              <Typography
+                variant='body2'
+                color='#000080'
+                sx={{
+                  position: "relative",
+                  display: "block",
                 }}
-              />
+              >
+                <strong>AIfrica:</strong>{" "}
+                <Box
+                  component='span'
+                  sx={{
+                    position: "relative",
+                    wordWrap: "break-word",
+                    "& .cursor": {
+                      position: "absolute",
+                      display: "inline-block",
+                      marginLeft: "4px",
+                      verticalAlign: "middle",
+                    },
+                    "& .text-wrapper": {
+                      position: "relative",
+                      display: "inline",
+                    },
+                  }}
+                >
+                  <span className='text-wrapper'>{currentText}</span>
+                  <img
+                    className='cursor'
+                    src='/pacman.gif'
+                    alt='Typing...'
+                    style={{
+                      width: "24px",
+                      height: "24px",
+                    }}
+                  />
+                </Box>
+              </Typography>
             </Box>
           )}
           {thinking && !currentText && (
@@ -213,7 +222,6 @@ const ChatBox: FC<ChatBoxProps> = ({ open, onClose }) => {
           )}
         </Box>
 
-        {/* Input Field and Send Button */}
         <Box sx={{ display: "flex", gap: "4px" }}>
           <TextField
             fullWidth
